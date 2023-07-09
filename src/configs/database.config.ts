@@ -15,6 +15,7 @@ export function getConfig(configService: ConfigService): TypeOrmModuleOptions {
     synchronize: false,
     options: {
       trustServerCertificate: true,
-    }
+    },
+    logging: true,
   };
 }

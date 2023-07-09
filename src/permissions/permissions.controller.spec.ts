@@ -3,9 +3,6 @@ import { PermissionsService } from './permissions.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Permissions } from './permissions.entity';
 import { PermissionsResponseDto } from './dto/permissions-response.dto';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { join } from 'path';
 
 describe('PermissionsController', () => {
   let permissionsController: PermissionsController;
@@ -13,7 +10,6 @@ describe('PermissionsController', () => {
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forFeature([Permissions])],
       controllers: [PermissionsController],
       providers: [PermissionsService],
     }).compile();
