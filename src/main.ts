@@ -7,6 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const PORT = Number(`${process.env.PORT}`);
 
+  //enabling cors
+  app.enableCors({
+    exposedHeaders: ['x-total-count'],
+  });
   //Swagger documentation
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Products Api')

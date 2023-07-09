@@ -1,27 +1,22 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from 'src/entity/base.entity';
+import { RolesPermissions } from 'src/roles-permissions/roles-permissions.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('permissions')
-export class Permissions {
+export class Permissions extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'permissions_id' })
   permissionsId: number;
 
   @Column({ type: 'varchar' })
   description: string;
 
-  @Column('date', {
-    name: 'created_at',
-  })
-  createdAt: Date;
+  constructor() {
+    super('');
+  }
 
-  @Column({ name: 'created_by', type: 'varchar' })
-  createdBy: string;
-
-  @Column('date', { name: 'updated_at' })
-  updatedAt: Date;
-
-  @Column({ name: 'updated_by', type: 'varchar' })
-  updatedBy: string;
-
-  @Column({ type: 'tinyint' })
-  status: boolean;
+  @OneToMany(
+    () => RolesPermissions,
+    (rolPermission) => rolPermission.permission,
+  )
+  rolesPermissions: RolesPermissions[];
 }

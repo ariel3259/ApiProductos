@@ -17,6 +17,7 @@ export class PermissionsService {
         status: true,
       },
     });
+    console.log(permissions);
     return permissions.map((x: Permissions) => new PermissionsResponseDto(x));
   }
 }
