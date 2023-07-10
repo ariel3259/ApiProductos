@@ -1,4 +1,5 @@
 import {
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
@@ -29,10 +30,11 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @ApiOkResponse({ type: UsersDetailDto })
+  @ApiBearerAuth()
   @Get('usersId')
   async getDetail(
     @Param('usersId') userId: number,
-    @Res() res: Response,
+    @Res({ passthrough: true }) res: Response,
   ): Promise<UsersDetailDto> {
     const result: UsersDetailDto = await this.usersService.getById(userId);
     if (!result) {
@@ -55,6 +57,7 @@ export class UsersController {
   }
 
   @ApiOkResponse({ type: UsersDetailDto })
+  @ApiBearerAuth()
   @Put(':usersId')
   async modify(
     @Body() userUpdateDto: UsersUpdateDto,
@@ -69,6 +72,7 @@ export class UsersController {
   }
 
   @ApiNoContentResponse()
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('usersId')
   async delete(@Param('usersId') usersId: number): Promise<void> {

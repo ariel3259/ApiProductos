@@ -14,6 +14,7 @@ import {
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import {
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
   ApiQuery,
@@ -27,6 +28,7 @@ import { RolesUpdateDto } from './dto/roles-update.dto';
 import { RolesDetailDto } from './dto/roles-detail.dto';
 
 @ApiTags('Roles')
+@ApiBearerAuth()
 @Controller('api/roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}

@@ -12,6 +12,7 @@ import {
   Param,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiOkResponse,
@@ -25,6 +26,7 @@ import { Page } from 'src/dto/page';
 import { RolesPermissionsRequestDto } from './dto/roles-permissions-request.dto';
 
 @ApiTags('Roles Permissions')
+@ApiBearerAuth()
 @Controller('api/rolesPermissions')
 export class RolesPermissionsController {
   constructor(
