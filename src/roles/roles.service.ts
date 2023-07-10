@@ -6,12 +6,16 @@ import { Page } from 'src/dto/page';
 import { RolesResponseDto } from './dto/roles-response.dto';
 import { RolesRequestDto } from './dto/roles-request.dto';
 import { RolesUpdateDto } from './dto/roles-update.dto';
+import { RolesDetailDto } from './dto/roles-detail.dto';
+import { RolesPermissions } from 'src/roles-permissions/roles-permissions.entity';
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectRepository(Roles)
     private readonly rolesRepository: Repository<Roles>,
+    @InjectRepository(RolesPermissions)
+    private readonly rolesPermissionsRepository: Repository<RolesPermissions>,
   ) {}
 
   async getAll(offset: number, limit: number): Promise<Page<RolesResponseDto>> {
@@ -27,6 +31,29 @@ export class RolesService {
       elements: roles.map((x: Roles) => new RolesResponseDto(x)),
       totalItems,
     }
+  }
+
+  async getDetail(rolesId: number): Promise<RolesDetailDto> {
+    const [rol, rolesPermissions]: [Roles, RolesPermissions[]] =
+      await Promise.all([
+        this.rolesRepository.findOne({
+          where: {
+            rolesId,
+            status: true,
+          }
+        }),
+        this.rolesPermissionsRepository.find({
+          relations: {
+            permission: true,
+          },
+          where: {
+            rolId: rolesId,
+            status: true,
+          }
+        }),
+      ]);
+    if (!rol) return null;
+    return new RolesDetailDto(rol, rolesPermissions);
   }
 
   async create(

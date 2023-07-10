@@ -1,6 +1,9 @@
 import { Column } from 'typeorm';
 
-export abstract class BaseEntity {
+/**
+ *  {T} is UpdateDto of entity class
+ */
+export abstract class BaseEntity<T> {
   @Column('date', { name: 'created_at' })
   createdAt: Date;
 
@@ -27,7 +30,10 @@ export abstract class BaseEntity {
     }
   }
 
-  protected modifyBase(username: string): void {
+  modify(dto: T, username: string): void {
+    for (const key of Object.keys(dto)) {
+      if (this[key] && dto[key] !== this[key]) this[key] = dto[key];
+    }
     this.updatedBy = username;
     this.updatedAt = new Date();
   }

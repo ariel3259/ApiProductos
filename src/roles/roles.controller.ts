@@ -24,6 +24,7 @@ import { Response } from 'express';
 import { Page } from 'src/dto/page';
 import { RolesRequestDto } from './dto/roles-request.dto';
 import { RolesUpdateDto } from './dto/roles-update.dto';
+import { RolesDetailDto } from './dto/roles-detail.dto';
 
 @ApiTags('Roles')
 @Controller('api/roles')
@@ -45,6 +46,20 @@ export class RolesController {
     );
     res.set('x-total-count', rolesPage.totalItems.toString());
     return rolesPage.elements;
+  }
+
+  @ApiOkResponse({ type: RolesDetailDto })
+  @Get(':rolId')
+  async getDetail(
+    @Param('rolId') rolId: number,
+    @Res({ passthrough: true }) res: Response
+  ): Promise<RolesDetailDto> {
+    const result: RolesDetailDto = await this.rolesService.getDetail(rolId);
+    if (!result) {
+      res.status(204);
+      return null;
+    }
+    return result;
   }
 
   @ApiCreatedResponse({ type: RolesResponseDto })

@@ -11,7 +11,7 @@ import {
 
 
 @Entity('roles_permissions')
-export class RolesPermissions extends BaseEntity {
+export class RolesPermissions extends BaseEntity<object> {
   @PrimaryGeneratedColumn('increment', { name: 'roles_permissions_id' })
   rolesPermissionsId;
 
