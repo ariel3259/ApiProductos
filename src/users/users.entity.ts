@@ -1,4 +1,4 @@
-import { BaseEntity } from 'src/entity/base.entity';
+import { BaseEntity } from '../entity/base.entity';
 import {
   Column,
   Entity,
@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UsersRequestDto } from './dto/users-request.dto';
-import { Roles } from 'src/roles/roles.entity';
+import { Roles } from '../roles/roles.entity';
 import { UsersUpdateDto } from './dto/users-update.dto';
 
 @Entity('users')

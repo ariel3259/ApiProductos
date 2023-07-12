@@ -22,7 +22,7 @@ import {
 } from '@nestjs/swagger';
 import { RolesResponseDto } from './dto/roles-response.dto';
 import { Response } from 'express';
-import { Page } from 'src/dto/page';
+import { Page } from '../dto/page';
 import { RolesRequestDto } from './dto/roles-request.dto';
 import { RolesUpdateDto } from './dto/roles-update.dto';
 import { RolesDetailDto } from './dto/roles-detail.dto';

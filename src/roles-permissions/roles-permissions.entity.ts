@@ -1,6 +1,6 @@
-import { BaseEntity } from 'src/entity/base.entity';
-import { Permissions } from 'src/permissions/permissions.entity';
-import { Roles } from 'src/roles/roles.entity';
+import { BaseEntity } from '../entity/base.entity';
+import { Permissions } from '../permissions/permissions.entity';
+import { Roles } from '../roles/roles.entity';
 import {
   Column,
   Entity,

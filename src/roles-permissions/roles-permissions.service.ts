@@ -3,10 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Roles } from 'src/roles/roles.entity';
 import { Repository, In } from 'typeorm';
 import { RolesPermissions } from './roles-permissions.entity';
-import { Page } from 'src/dto/page';
+import { Page } from '../dto/page';
 import { RolesPermissionsResponseDto } from './dto/roles-permissions-response.dto';
 import { RolesPermissionsRequestDto } from './dto/roles-permissions-request.dto';
-import { Permissions } from 'src/permissions/permissions.entity';
+import { Permissions } from '../permissions/permissions.entity';
 
 @Injectable()
 export class RolesPermissionsService {

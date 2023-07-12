@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PermissionsResponseDto } from 'src/permissions/dto/permissions-response.dto';
-import { RolesPermissions } from 'src/roles-permissions/roles-permissions.entity';
+import { PermissionsResponseDto } from '../../permissions/dto/permissions-response.dto';
+import { RolesPermissions } from '../../roles-permissions/roles-permissions.entity';
 import { Roles } from '../roles.entity';
 
 export class RolesDetailDto {

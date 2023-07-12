@@ -3,6 +3,8 @@ import { PermissionsService } from './permissions.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Permissions } from './permissions.entity';
 import { PermissionsResponseDto } from './dto/permissions-response.dto';
+import { PermissionsModule } from './permissions.module';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('PermissionsController', () => {
   let permissionsController: PermissionsController;
@@ -10,9 +12,11 @@ describe('PermissionsController', () => {
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
-      controllers: [PermissionsController],
-      providers: [PermissionsService],
-    }).compile();
+      imports: [PermissionsModule],
+    })
+      .overrideProvider(getRepositoryToken(Permissions))
+      .useValue(jest.fn())
+      .compile();
     permissionsController = moduleRef.get<PermissionsController>(
       PermissionsController,
     );
@@ -21,34 +25,11 @@ describe('PermissionsController', () => {
 
   describe('findAll', () => {
     it('should return an array of permissions', async () => {
+      const username = 'ariel_s';
       const permissions: Permissions[] = [
-        {
-          permissionsId: 1,
-          description: 'listar-productos',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          createdBy: 'ariel_s',
-          updatedBy: 'ariel_s',
-          status: true,
-        },
-        {
-          permissionsId: 2,
-          description: 'crear-productos',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          createdBy: 'ariel_s',
-          updatedBy: 'ariel_s',
-          status: true,
-        },
-        {
-          permissionsId: 1,
-          description: 'modificar-productos',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          createdBy: 'ariel_s',
-          updatedBy: 'ariel_s',
-          status: true,
-        },
+        new Permissions(1, 'listar-productos', username),
+        new Permissions(2, 'crear-productos', username),
+        new Permissions(3, 'modificar-productos', username),
       ];
       const result: PermissionsResponseDto[] = permissions.map(
         (x: Permissions) => new PermissionsResponseDto(x),
@@ -59,6 +40,7 @@ describe('PermissionsController', () => {
       const responseEndpoint: PermissionsResponseDto[] =
         await permissionsController.getAll();
       expect(responseEndpoint).toBe(result)
+      expect(permissionsService.getAll).toHaveBeenCalledTimes(1);
     });
   });
 });

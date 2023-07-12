@@ -1,5 +1,5 @@
-import { BaseEntity } from 'src/entity/base.entity';
-import { RolesPermissions } from 'src/roles-permissions/roles-permissions.entity';
+import { BaseEntity } from '../entity/base.entity';
+import { RolesPermissions } from '../roles-permissions/roles-permissions.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity('permissions')
@@ -10,8 +10,12 @@ export class Permissions extends BaseEntity<object> {
   @Column({ type: 'varchar' })
   description: string;
 
-  constructor() {
-    super('');
+  constructor(permissionId: number, description: string, username: string) {
+    super(username);
+    if (permissionId && description) {
+      this.permissionsId = permissionId;
+      this.description = description;
+    }
   }
 
   @OneToMany(

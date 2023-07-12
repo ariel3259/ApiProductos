@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Roles } from './roles.entity';
-import { Page } from 'src/dto/page';
+import { Page } from '../dto/page';
 import { RolesResponseDto } from './dto/roles-response.dto';
 import { RolesRequestDto } from './dto/roles-request.dto';
 import { RolesUpdateDto } from './dto/roles-update.dto';
 import { RolesDetailDto } from './dto/roles-detail.dto';
-import { RolesPermissions } from 'src/roles-permissions/roles-permissions.entity';
+import { RolesPermissions } from '../roles-permissions/roles-permissions.entity';
 
 @Injectable()
 export class RolesService {

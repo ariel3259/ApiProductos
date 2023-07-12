@@ -22,7 +22,7 @@ import {
 import { RolesPermissionsService } from './roles-permissions.service';
 import { Response } from 'express';
 import { RolesPermissionsResponseDto } from './dto/roles-permissions-response.dto';
-import { Page } from 'src/dto/page';
+import { Page } from '../dto/page';
 import { RolesPermissionsRequestDto } from './dto/roles-permissions-request.dto';
 
 @ApiTags('Roles Permissions')
